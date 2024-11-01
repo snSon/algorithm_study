@@ -1,0 +1,49 @@
+// 2775번 부녀회장이 될테야
+
+#include <iostream>
+
+using namespace std;
+
+typedef struct Test_case {
+	int k;
+	int n;
+}Test_case;
+
+int living_people(int floor, int room) {
+	if (floor <= 0) {
+		return room;
+	}
+
+	int sum_people = 0;
+
+	for (int i = 1; i <= room; i++) {
+		sum_people += living_people(floor - 1, i);
+	}
+
+	return sum_people;
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int T = 0, n = 0, k = 0;
+
+	cin >> T;
+	Test_case* test = new Test_case[T];
+
+	for (int i = 0; i < T; i++) {
+		cin >> test[i].k;
+		cin >> test[i].n;
+	}
+
+	for (int i = 0; i < T; i++) {
+		cout << living_people(test[i].k, test[i].n) << "\n";
+	}
+
+	return 0;
+}
+
+// 입력을 모두 받고 출력을 한번에 하는 문제였다.
+// 문제 입출력 조건을 잘 읽도록 하자.

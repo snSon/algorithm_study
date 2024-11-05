@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <string.h>
+
+
+char** create_vertexes(int n, int len){
+    char **vertexes = (char**)malloc(sizeof(char) * n);
+    for(int i = 0; i < n; i++){
+        vertexes[i] = (char*)malloc(sizeof(char) * len);
+    }
+
+    return vertexes;
+}
+
+void input_vertexes(char **vertexes, int n){
+    
+}
+
+void free_vertexes(int **vertexes, int n){
+    for(int i = 0; i < n; i++){
+        free(vertexes[i]);
+    }
+    free(vertexes);
+}
+
+int** create_graph(int n){
+    int **graph_weight = (int**)malloc(sizeof(int) * n);
+    for(int i = 0; i < n; i++){
+        graph_weight[i] = (int*)malloc(sizeof(int) * n);
+    }
+
+    return graph_weight;
+}
+
+void free_graph(int **graph, int n){
+    for(int i = 0; i < n; i++){
+        free(graph[i]);
+    }
+    free(graph);
+}
+
+int main(){
+
+    char input_cities[10][6] = {"서울", "원주", "강릉", "천안", "논산", "대전", "대구", "포항", "광주", "부산"};
+    
+    int n = 0, len = 0;
+    printf("정점 개수, 정점 문자열 길이 : ");
+    scanf("%d %d", &n, &len);
+
+    char **input_cities = create_vertexes(n, len);
+    int **graph_weight = create_graph(n);
+    if(input_cities == NULL || graph_weight == NULL){
+        return 1;
+    }
+
+
+
+    {"서울", "원주", "강릉", "천안", "논산", "대전", "대구", "포항", "광주", "부산"};
+
+    
+    return 0;
+}

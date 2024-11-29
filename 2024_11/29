@@ -1,0 +1,34 @@
+#include <iostream>
+
+using namespace std;
+
+int layer(int n, int start, int end, int layer_count) {
+	layer_count += 6;
+	start = end;
+	end += layer_count;
+
+	if (n >= start && n < end) {
+		return 1;
+	}
+	else {
+		return layer(n, start, end, layer_count) + 1;
+	}
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int n;
+	cin >> n;
+
+	if (n == 1) {
+		cout << 1;
+	}
+	else {
+		cout << layer(n, 1, 2, 0) + 1;
+	}
+
+	return 0;
+}

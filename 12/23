@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int brute_squre(int **arr, int n, int m, int size){
+    if(size == 1){
+        return 1;
+    }
+    int best_size = brute_squre(arr, n, m, size - 1);
+
+    for(int i = 0; i <= n - size; i++){
+        for(int j = 0; j <= m - size; j++){
+            if(arr[i][j] == arr[i + size - 1][j + size - 1] && arr[i + size - 1][j] == arr[i][j + size - 1] && arr[i][j] == arr[i + size - 1][j]){
+                return size;
+            }
+        }
+    }
+    return best_size;
+}
+
+int main(){
+    int n = 0, m = 0;
+    int **arr;
+
+    scanf("%d %d", &n, &m);
+
+    arr = (int**)malloc(sizeof(int*)*n);
+    char *numbers = (char*)malloc(sizeof(char) * m);
+    for(int i = 0; i < n; i++){
+        arr[i] = (int *)malloc(sizeof(int)*m);
+        scanf("%s", numbers);
+
+        for(int j = 0; j < m; j++){
+            arr[i][j] = numbers[j] - '0';
+        }
+    }
+
+    int biggest_size;
+    if(n >= m){
+        biggest_size = brute_squre(arr, n, m, m);
+    }
+    else{
+        biggest_size = brute_squre(arr, n, m, n);
+    }
+
+    printf("%d", biggest_size*biggest_size);
+
+    for(int i = 0; i < n; i++){
+        free(arr[i]);
+    }
+    free(arr);
+
+    return 0;
+}

@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main(){
+    int n = 0, number = 0;
+    scanf("%d %d", &n, &number);
+
+    int arr[10] = {0, };
+    for(int i = 1; i <= n; i++){
+        int curr = i;
+        while(curr != 0){
+            arr[curr%10]++;
+            curr /= 10;
+        }
+    }
+    printf("%d", arr[number]);
+}

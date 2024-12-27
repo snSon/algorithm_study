@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Link{
+    int number;
+    int compliment;
+    struct Link** under;
+    int count_under;
+}Link;
+
+void propagate(Link *node){
+    // printf("부모 : %d   weight : %d\n", node->number, node->compliment);
+    for(int i = 0; i < node->count_under; i++){
+        // printf("자식 : %d\n", node->under[i]->number);
+        node->under[i]->compliment += node->compliment;
+        propagate(node->under[i]);
+    }
+    
+    return;
+}
+
+int main(){
+    int n=0, m = 0;
+    scanf("%d %d", &n, &m);
+
+    Link* employees = (Link*)malloc(sizeof(Link) * n);
+    for(int i = 0; i < n; i++){
+        employees[i].number = i + 1;
+        employees[i].compliment = 0;
+        employees[i].under = NULL;
+        employees[i].count_under = 0;
+    }
+    Link dummy;
+    dummy.under = NULL;
+    dummy.number = -1;
+    dummy.count_under = 0;
+    dummy.compliment = 0;
+
+    int boss = 0;
+    for(int i = 0; i < n; i++){
+        scanf("%d", &boss);
+        // if(boss = -1){
+        //     continue;
+        // }
+        if (boss == -1) {
+            dummy.count_under++;
+            if (dummy.under == NULL) {
+                dummy.under = (Link**)malloc(sizeof(Link*) * dummy.count_under);
+            } else {
+                Link** temp = (Link**)realloc(dummy.under, sizeof(Link*) * dummy.count_under);
+                if (temp == NULL) {
+                    fprintf(stderr, "메모리 재할당 실패\n");
+                    exit(EXIT_FAILURE);
+                }
+                dummy.under = temp;
+            }
+            dummy.under[dummy.count_under - 1] = &employees[i];
+            continue;
+        }
+
+        
+        employees[boss - 1].count_under++;
+        int now_count = employees[boss - 1].count_under;
+        if(now_count == 1){
+            employees[boss - 1].under = (Link**)malloc(sizeof(Link*) * now_count);
+        }
+        else if(now_count >= 2){
+            // printf("자식 2개 이상\n");
+            Link** temp = (Link**)realloc(employees[boss - 1].under, sizeof(Link*) * now_count);
+            if(temp == NULL){
+                fprintf(stderr, "메모리 재할당 실패\n");
+                exit(EXIT_FAILURE);
+            }
+            employees[boss - 1].under = temp;
+            // printf("부모 번호 : %d  자식 번호 : %d\n", employees[boss - 1].number, i);
+        }
+        employees[boss - 1].under[now_count - 1] = &employees[i];
+    }
+
+    // // 연결 유무 확인
+    // Link *node = &dummy;
+    // for(int i = 0; i <= n; i++){
+    //     printf("%d\n", node->number);
+    //     node = node->under;
+    // }
+
+    int number = 0, weight = 0;
+    for(int i = 0; i < m; i++){
+        scanf("%d %d", &number, &weight);
+        employees[number - 1].compliment += weight;
+    }
+
+    propagate(&dummy);
+
+    for(int i = 0; i < n; i++){
+        printf("%d ", employees[i].compliment);
+    }
+
+    for(int i = 0; i < n; i++){
+        free(employees[i].under);
+    }
+    free(employees);
+    free(dummy.under);
+
+    return 0;
+}

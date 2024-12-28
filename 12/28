@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <math.h>
+
+int main(){
+    int n = 0, m = 0;
+    scanf("%d %d", &n, &m);
+
+    int set = 1001, one = 1001;
+    int temp_set = 0, temp_one = 0;
+    for(int i = 0; i < m; i++){
+        scanf("%d %d", &temp_set, &temp_one);
+        if(temp_set < set){
+            set = temp_set;
+        }
+        if(temp_one < one){
+            one = temp_one;
+        }
+    }
+
+    if(set == 0 || one == 0){
+        printf("0\n");
+        return 0;
+    }
+    
+    // printf("set : %d    one : %d\n", set, one);
+    if(set > 6* one){
+        printf("%d\n", n * one);
+        return 0;
+    }
+    int better_set_number = (int)ceil((double)set / one);
+    // printf("better : %d\n", better_set_number);
+
+    int money = 0;
+
+    while(n - better_set_number >= 0){
+        money += set;
+        n -= 6;
+    }
+    // int set_number = (int)floor(n / better_set_number);
+    // printf("set_num : %d\n", set_number);
+    // money += set_number * set;
+    // n -= set_number * better_set_number;
+
+    if(n > 0){
+        money += n * one;
+    }
+
+    printf("%d\n", money);
+
+    return 0;
+}

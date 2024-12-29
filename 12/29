@@ -1,0 +1,111 @@
+queue review
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Queue{
+    int *head;
+    int size;
+}Queue;
+
+void push(Queue *queue, int num){
+    if(queue->size == 0){
+        queue->size++;
+        int* temp = (int*)malloc(sizeof(int) * queue->size);
+        temp[0] = num;
+        queue->head = temp;
+    }
+    else{
+        queue->size++;
+        int* temp = (int*)realloc(queue->head, sizeof(int) * queue->size);
+        temp[queue->size - 1] = num;
+        queue->head = temp;
+    }
+}
+
+int pop(Queue *queue){
+    if(queue->size == 0){
+        // printf("queue size is 0, can't pop!\n");
+        return -1;
+    }
+    else{
+        int num = queue->head[0];
+        for(int i = 1; i < queue->size; i++){
+            queue->head[i - 1] = queue->head[i];
+        }
+        queue->size--;
+        queue->head = (int*)realloc(queue->head, sizeof(int) * queue->size);
+
+        return num;
+    }
+}
+
+int empty(Queue *queue){
+    if(queue->size == 0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+void front(Queue *queue){
+    if(queue->size == 0){
+        printf("-1\n");
+    }
+    else{
+        printf("%d\n", queue->head[0]);
+    }
+}
+
+int back(Queue *queue){
+    if(queue->size == 0){
+        printf("-1\n");
+    }
+    else{
+        printf("%d\n", queue->head[queue->size - 1]);
+    }
+}
+
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+
+    Queue *q = (Queue *)malloc(sizeof(Queue));
+    q->head = NULL;
+    q->size = 0;
+
+    char s[10];
+    for(int i = 0; i < n; i++){
+        scanf("%s", s);
+        if(strcmp(s, "push") == 0){
+            int num = 0;
+            scanf("%d", &num);
+            
+            push(q, num);
+        }
+        else if(strcmp(s, "pop") == 0){
+            int num = pop(q);
+            printf("%d\n", num);
+        }
+        else if(strcmp(s, "size") == 0){
+            printf("%d\n", q->size);
+        }
+        else if(strcmp(s, "empty") == 0){
+            int is_empty = empty(q);
+            printf("%d\n", is_empty);
+        }
+        else if(strcmp(s, "front") == 0){
+            front(q);
+        }
+        else{
+            back(q);
+        }
+    }
+
+    free(q->head);
+    free(q);
+
+    return 0;
+}

@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// 연결 리스트 구조체체
+typedef struct Node{
+    int data;
+    struct Node* next;
+}Node;
+
+int main(){
+    // 입력
+    int n = 0;
+    scanf("%d", &n);
+
+    if(n == 1){
+        printf("1\n");
+        return 0;
+    }
+
+    // 리스트 더미 헤더 생성
+    Node* dummy = (Node*)malloc(sizeof(Node));
+    dummy->data = 0;
+    dummy->next = NULL;
+
+    // Node* tail_prev = (Node*)malloc(sizeof(Node));
+
+    // 카드덱 생성
+    Node* prev = dummy;
+    for(int i = 0; i < n; i++){
+        Node* curr =(Node*)malloc(sizeof(Node));
+        curr->data = i + 1;
+        curr->next = NULL;
+
+        prev->next = curr;
+        prev = curr;
+
+        // if(i == n-2){
+        //     tail_prev->data = 0;
+        //     tail_prev->next = prev;
+        // }
+    }
+
+    prev->next = NULL;
+
+    // Node *curr = dummy;
+    // while(curr != NULL && curr != tail){
+    //     // printf("%d\n", curr->data);
+    //     curr = curr->next;
+    // }
+
+    // 문제 실행
+    while(1){
+        if(dummy->next == NULL){
+            break;
+        }
+        // 제일 위 제거
+        Node* first = dummy->next;
+        dummy->next = dummy->next->next;
+        free(first);
+
+        if(dummy->next->next == NULL){
+            break;
+        }
+        
+        // 다음 카드 제일 뒤
+        Node* second = dummy->next;
+        dummy->next = dummy->next->next;
+
+        second->next = NULL;
+        prev->next = second;
+        prev = second;
+    }
+
+    printf("%d\n", dummy->next->data);
+
+    Node* curr = dummy->next;
+    while(curr != NULL){
+        Node* temp = curr;
+        curr = curr->next;
+        free(temp);
+    }
+    free(dummy);
+
+    return 0;
+}

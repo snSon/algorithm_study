@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+int isprime(int n){
+    if(n <= 1){
+        return 0;
+    }
+    else if(n == 2){
+        return 1;
+    }
+
+    int sqrt_n = (int)sqrt(n);
+    for(int i = 2; i <= sqrt_n; i++){
+        if(n % i == 0){
+            return 0;
+        }
+    }
+
+    return 1;
+}
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+
+    int* arr = (int*)malloc(sizeof(int) * n);
+    for(int i = 0; i < n; i++){
+        scanf("%d", &arr[i]);
+    }
+
+    int count_prime = 0;
+    for(int i = 0; i < n; i++){
+        count_prime += isprime(arr[i]);
+    }
+
+    printf("%d\n", count_prime);
+    
+    free(arr);
+
+    return 0;
+}

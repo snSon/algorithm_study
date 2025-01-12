@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define HASH_TABLE_SIZE 100003
+
+typedef struct HashNode{
+    char key[21];
+    int value;
+    struct HashNode* next;
+}HashNode;
+
+HashNode* hash_table[HASH_TABLE_SIZE];
+
+unsigned int hash_function(const char* key){
+    unsigned int hash = 0;
+    while(*key){
+        hash = (hash * 31) + (*key++);
+    }
+    return hash % HASH_TABLE_SIZE;
+}
+
+void hash_table_insert(const char* key, int value){
+    unsigned int hash = hash_function(key);
+    HashNode* new_node = (HashNode*)malloc(sizeof(HashNode));
+    strcpy(new_node->key, key);
+    new_node->value = value;
+    new_node->next = hash_table[hash];
+    hash_table[hash] = new_node;
+}
+
+int hash_table_search(const char* key){
+    unsigned int hash = hash_function(key);
+    HashNode* node = hash_table[hash];
+    while(node){
+        if(strcmp(node->key, key) == 0){
+            return node->value;
+        }
+        node = node->next;
+    }   
+    return -1;
+}
+
+void free_hash_table(HashNode** hash_table, int size){
+    for(int i = 0; i < size; i++){
+        HashNode* node = hash_table[i];
+        while(node){
+            HashNode* temp = node;
+            node = node->next;
+            free(temp);
+        }
+    }
+}
+int main(){
+    int monster_num = 0, question_num = 0;
+
+    scanf("%d %d", &monster_num, &question_num);
+
+    char** monsters = (char**)malloc(sizeof(char*) * monster_num);
+    for(int i = 0; i < monster_num; i++){
+        monsters[i] = (char*)malloc(sizeof(char) * 21);
+        scanf("%s", monsters[i]);
+        hash_table_insert(monsters[i], i + 1);
+    }
+
+    char** questions = (char**)malloc(sizeof(char*) * question_num);
+    for(int i = 0; i < question_num; i++){
+        questions[i] = (char*)malloc(sizeof(char) * 21);
+        scanf("%s", questions[i]);
+    }
+
+    for(int i = 0; i < question_num; i++){
+        if(isdigit(questions[i][0])){
+            int idx = 0;
+            for(int j = 0; j < strlen(questions[i]); j++){
+                idx = idx*10 + (questions[i][j] - '0');
+            }
+            printf("%s\n", monsters[idx - 1]);
+        }
+        else{
+            printf("%d\n", hash_table_search(questions[i]));
+        }
+    }
+
+    for(int i = 0; i < monster_num; i++){
+        free(monsters[i]);
+    }
+    free(monsters);
+    free_hash_table(hash_table, 100003);
+
+    return 0;
+}

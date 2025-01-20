@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+
+    int clothes[6];
+    scanf("%d %d %d %d %d %d", &clothes[0], &clothes[1], &clothes[2], &clothes[3], &clothes[4], &clothes[5]);
+
+    int t, p;
+    scanf("%d %d", &t, &p);
+
+    int pen_set = n / p;
+    int pen_each = n % p;
+
+    int clothe_set = 0;
+    for(int i = 0; i < 6; i++){
+        if(clothes[i] % t == 0){
+            clothe_set += clothes[i] / t;
+        }
+        else{
+            clothe_set += (clothes[i] / t + 1);
+        }
+    }
+
+    printf("%d\n", clothe_set);
+    printf("%d %d\n", pen_set, pen_each);
+
+    return 0;
+}

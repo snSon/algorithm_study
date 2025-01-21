@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int gcd(int a, int b){
+    if(a == 0){
+        return b;
+    }
+    else if(b == 0){
+        return a;
+    }
+
+    if(a > b){
+        return gcd(a - b, b);
+    }
+    else{
+        return gcd(b - a, a);
+    }
+}
+int main(){
+    int a, b;
+    scanf("%d %d", &a, &b);
+
+    int gcd_number, lcm_number;
+    if(a > b){
+        gcd_number = gcd(a - b, b);
+    }
+    else{
+        gcd_number = gcd(b - a, a);
+    }
+
+    lcm_number = (a*b)/gcd_number;
+
+    printf("%d\n%d\n", gcd_number, lcm_number);
+
+    return 0;
+}

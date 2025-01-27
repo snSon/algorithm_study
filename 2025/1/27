@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Info{
+    int age;
+    char name[101];
+}Info;
+
+int compare(const void *a, const void *b){
+    Info* struct1 = (Info *)a;
+    Info* struct2 = (Info *)b;
+
+    return struct1->age - struct2->age;
+}
+
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+
+    Info *inputs = (Info*)malloc(sizeof(Info) * n);
+    for(int i = 0; i < n; i++){
+        scanf("%d %s", &inputs[i].age, inputs[i].name);
+    }
+
+    qsort(inputs, n, sizeof(Info), compare);
+
+    for(int i = 0; i < n; i++){
+        printf("%d %s\n", inputs[i].age, inputs[i].name);
+    }
+
+    return 0;
+}

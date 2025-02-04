@@ -1,0 +1,14 @@
+#include <stdio.h>
+
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+
+    int five_1 = n/5;
+    int five_2 = n/25;
+    int five_3 = n/125;
+
+    printf("%d\n", five_1 + five_2 + five_3);
+
+    return 0;
+}

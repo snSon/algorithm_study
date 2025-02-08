@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+
+    int i = 0;
+    char num[10];
+    while(1){
+        i++;
+        sprintf(num, "%d", i);
+
+        if(strstr(num, "666")){
+            n--;
+            if(n == 0){
+                printf("%d\n", i);
+                break;
+            }
+        }
+    }
+
+    return 0;
+}

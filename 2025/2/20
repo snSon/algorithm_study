@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int main(){
+    int curr_h, curr_m;
+    scanf("%d %d", &curr_h, &curr_m);
+
+    int t;
+    scanf("%d", &t);
+
+    int h = t / 60;
+    int m = t % 60;
+
+    int end_m = curr_m + m;
+    if(end_m >= 60){
+        end_m -= 60;
+        h++;
+    }
+
+    int end_h = curr_h + h;
+    if(end_h >= 24){
+        end_h -= 24;
+    }
+
+    printf("%d %d\n", end_h, end_m);
+
+    return 0;
+}

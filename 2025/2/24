@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+int main(){
+    int a, b, c;
+    scanf("%d %d %d", &a, &b, &c);
+
+    int middle_num = a > b ? (b > c ? b : (a > c ? c : a)) : (a > c ? a : (b > c ? c : b));
+
+    printf("%d\n", middle_num);
+
+    return 0;
+}

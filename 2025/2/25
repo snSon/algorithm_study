@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int check_arsq_num(int num){
+    if(num < 100){
+        return 1;
+    }
+
+    int first = num % 10;
+    num /= 10;
+    int second = num % 10;
+    int diff = second - first;
+
+    while(num >= 10){
+        first = second;
+        num /= 10;
+        second = num % 10;
+        if(second - first != diff){
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+int main(){
+    int n;
+    scanf("%d", &n);
+
+    int count = 0;
+    for(int i = 1; i <= n; i++){
+        int num = i;
+        if(check_arsq_num(i)){
+            count++;
+        }
+    }
+
+    printf("%d\n", count);
+
+    return 0;
+}

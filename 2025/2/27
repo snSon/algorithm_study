@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Fib{
+    int zero;
+    int one;
+}Fib;
+
+int main(){
+    int t;
+    scanf("%d", &t);
+
+    for(int i = 0; i < t; i++){
+        int n;
+        scanf("%d", &n);
+    
+        if(n == 0){
+            printf("1 0\n");
+            continue;
+        }
+    
+        Fib *dp_arr = (Fib*)malloc(sizeof(Fib) * (n + 1));
+    
+        dp_arr[0].zero = 1;
+        dp_arr[0].one = 0;
+    
+        dp_arr[1].zero = 0;
+        dp_arr[1].one = 1;
+    
+        for(int i = 2; i <= n; i++){
+            dp_arr[i].zero = dp_arr[i - 1].zero + dp_arr[i - 2].zero;
+            dp_arr[i].one = dp_arr[i - 1].one + dp_arr[i - 2].one;
+        }
+    
+        printf("%d %d\n", dp_arr[n].zero, dp_arr[n].one);    
+
+        free(dp_arr);
+    }
+
+    return 0;
+}

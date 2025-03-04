@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int compare(const void *a, const void *b){
+    int num1 = *(int *)a;
+    int num2 = *(int *)b;
+
+    if(num1 > num2){
+        return 1;
+    }
+    else{
+        return -1;
+    }
+}
+
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+
+    int *inputs = (int*)malloc(sizeof(int) * n);
+    for(int i = 0; i < n; i++){
+        scanf("%d", &inputs[i]);
+    }
+
+    qsort(inputs, n, sizeof(int), compare);
+
+    int most[8001]; 
+    for(int i = 0; i < 8001; i++){
+        most[i] = 0;
+    }
+
+    int sum = 0;
+    for(int i = 0; i < n; i++){
+        sum += inputs[i];
+        most[inputs[i] + 4000] += 1;
+    }
+
+    int avg = round(1.0 * sum / n);
+    int mid = inputs[n/2];
+    int range = inputs[n - 1] - inputs[0];
+
+    int most_num = 4001;
+    int most_count = -1;
+    int second_most, second_count;
+    for(int i = 8000; i >= 0; i--){
+        if(most[i] >= most_count){
+            second_most = most_num;
+            second_count = most_count;
+
+            most_num = i - 4000;
+            most_count = most[i];
+
+            //printf("%d %d\n", second_most, most_num);
+        }
+    }
+
+    if(most_count == second_count){
+        most_num = second_most;
+    }
+
+    printf("%d\n%d\n%d\n%d\n", avg, mid, most_num, range);
+
+    return 0;
+}

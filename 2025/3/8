@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// cards_len은 배열 cards의 길이입니다.
+int solution(int cards[], size_t cards_len) {
+    int answer = 0;
+    
+    // brute_force를 위한 배열 선언
+    int *visited = (int*)malloc(sizeof(int) * cards_len);
+    for(int i = 0; i < cards_len; i++){
+        visited[i] = 0;
+    }
+    
+
+    int max_score = 0;
+    for(int i = 0; i < cards_len; i++){
+        int first_score = 1;
+
+        visited[i] = 1;
+        int card_num = cards[i] - 1;
+        while(!visited[card_num]){
+            visited[card_num] = 1;
+            card_num = cards[card_num] - 1;
+            first_score++;
+        }
+        
+        // 2번째 임의 탐색 숫자
+        int max_second_score = 0;
+        for(int j = 0; j < cards_len; j++){
+            if(visited[j]){
+                continue;
+            }
+            
+            int* temp = (int*)malloc(sizeof(int) * cards_len);
+            for(int k = 0; k < cards_len; k++){
+                temp[k] = visited[k];
+            }
+            
+            
+            int second_score = 1;
+
+            // 2번째 탐색 실행
+            temp[j] = 1;
+            card_num = cards[j] - 1;
+            while(!temp[card_num]){
+                temp[card_num] = 1;
+                card_num = cards[card_num] - 1;
+                second_score++;
+            }    
+            
+            // 2번째 탐색의 최고점 갱신
+            if(second_score > max_second_score){
+                max_second_score = second_score;
+            }
+        }
+        
+        int curr_score = first_score * max_second_score;
+        if(curr_score > max_score){
+            max_score = curr_score;
+        }
+    }
+    
+    answer = max_score;
+    
+    return answer;
+}

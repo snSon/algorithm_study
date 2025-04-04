@@ -14,23 +14,12 @@ char* solution(const char* code) {
     
     for(int idx = 0; idx < code_len; idx++){
         if(code[idx] == '1'){
-            mode = mode ^ 1;
+            mode = !mode;
         }
-        else{
-            if(mode == 0){
-                if((idx & 1) == 0){
-                    answer_len++;
-                    answer = (char*)realloc(answer, sizeof(char) * (answer_len + 1)); 
-                    answer[answer_len - 1] = code[idx]; 
-                }
-            }
-            else if (mode == 1){
-                if((idx & 1) != 0){
-                    answer_len++;
-                    answer = (char*)realloc(answer, sizeof(char) * (answer_len + 1)); 
-                    answer[answer_len - 1] = code[idx];                
-                }
-            }
+        else if(!mode ^ (idx & 1)){
+            answer_len++;
+            answer = (char*)realloc(answer, sizeof(char) * (answer_len + 1));
+            answer[answer_len - 1] = code[idx];
         }
     }
     

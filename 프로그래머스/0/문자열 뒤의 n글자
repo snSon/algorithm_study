@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* solution(const char* my_string, int n) {
+    char* answer = (char*)malloc(sizeof(char) * (n + 1));
+    
+    int ms_idx = strlen(my_string) - 1;
+    for(int i = n - 1; i >= 0; i--)
+        answer[i] = my_string[ms_idx--];
+    
+    answer[n] = '\0';
+    
+    return answer;
+}

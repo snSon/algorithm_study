@@ -67,4 +67,9 @@
 </ul>
 
 
+### feedback
+기존의 내가 작성한 코드는 letf인지 right인지 판별하는 변수를 이용해 조건 분기를 실행 후 개별적으로 동적할당을 실행함.
+start와 end 변수를 선언한 후 "l" 또는 "r"에 따라 start 또는 end 변수를 갱신해 동적할당을 하는 방식을 이용하면 불필요한 코드 반복을 없앨 수 있음.
+
+
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges

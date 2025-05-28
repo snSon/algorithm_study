@@ -13,4 +13,5 @@
 ## 프로그래머스
 ### 활동 기간 : 2025.03 ~ 
 <img width="120" alt="프로그래머스_프로필" src="https://github.com/user-attachments/assets/12c32b20-741c-47b7-982d-f52a73ba7c2d" />
+<br>
 [프로그래머스 활동](https://programmers.co.kr/users/challenge-activity)

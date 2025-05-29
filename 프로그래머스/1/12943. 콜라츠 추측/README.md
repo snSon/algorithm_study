@@ -1,5 +1,9 @@
 # [level 1] 콜라츠 추측 - 12943 
 
+## 피드백
+콜라츠 추측 조건에 의해 int형 범위를 넘어서는 경우가 발생해서 num&1 조건을 사용하지 못하는 경우가 발생했다.
+buffer overflow 유무를 확실히 판단하도록 하자.
+
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12943) 
 
 ### 성능 요약

@@ -1,5 +1,9 @@
 # [level 2] 최댓값과 최솟값 - 12939 
 
+## 피드백
+- (int) : 불가 -> stoi()
+- to_string()
+- INT_MAX + 1 불가 -> INT_MAX 대입 후 ++ 실행
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12939) 
 
 ### 성능 요약

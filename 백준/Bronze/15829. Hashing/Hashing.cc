@@ -10,9 +10,12 @@ int main(){
     std::cin >> L >> s;
 
     // process
-    int hash_num = 0;
+    long long hash_num = 0;
+    long long pow_num = 1;
     for(int i = 0; i < L; i++){
-        hash_num += (int)pow(r, i) * (s[i] - 'a' + 1) % M;
+        long long temp = (s[i] - 'a' + 1);
+        hash_num = (hash_num + pow_num * temp) % M;
+        pow_num = pow_num * r % M;
     }
 
     std::cout << hash_num << "\n";

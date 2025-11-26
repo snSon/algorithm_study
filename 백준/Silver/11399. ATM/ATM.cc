@@ -6,21 +6,21 @@ int main(){
     int n;
     std::cin >> n;
 
-    std::vector<int> inputs(n);
+    std::vector<int> v(n);
     for(int i = 0; i < n; i++){
-        std::cin >> inputs[i];
+        std::cin >> v[i];
     }
 
-    sort(inputs.begin(), inputs.end());
-    
-    int sum = 0;
+    sort(v.begin(), v.end());
+
+    int time = 0;
     int wait_time = 0;
-    for(int i : inputs){
-        sum += (wait_time + i);
-        wait_time += i;
+    for(int t : v){
+        time += wait_time + t;
+        wait_time += t;
     }
 
-    std::cout << sum << std::endl;
+    std::cout << time << '\n';
 
     return 0;
 }
